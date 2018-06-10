@@ -25,6 +25,7 @@ clone to the repo or download the files, open the directory and follow the comma
         torghost start -----(start torghost)
         torghost stop  -----(stop torghost) 
 	torghost switch ----(switch IP)
+	torghost check -----(Check Tor connection status)
 
     
 -----------------------------------------------------------------------------------------
