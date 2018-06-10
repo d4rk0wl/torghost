@@ -1,10 +1,10 @@
-THIS TOOL IS FOR KALI LINUX AND BUILD ON PYTHON 2.7 (wont work on windows and python 3.x)
+This version is forked to work on Ubuntu 18, utilizing Python 2.7
 
 
 
 -----------------INSTALL ----------------------------------------------------------------
 
-clone to the repo or download the files, open the directory and follow the commands
+clone to the repo or download the files, open the directory and follow the commands. If errors occur during first use, reboot the system and try again.
 	
 	# chmod +x install.sh
 	# ./install.sh
