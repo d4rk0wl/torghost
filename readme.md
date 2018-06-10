@@ -4,10 +4,10 @@ This version is forked to work on Ubuntu 18, utilizing Python 2.7
 
 -----------------INSTALL ----------------------------------------------------------------
 
-clone to the repo or download the files, open the directory and follow the commands. If errors occur during first use, reboot the system and try again.
+clone to the repo or download the files, open the directory and follow the commands. If errors occur during first use, reboot the system and try again. Run all commands under Sudo
 	
 	# chmod +x install.sh
-	# ./install.sh
+	# sudo ./install.sh
 
 
 
