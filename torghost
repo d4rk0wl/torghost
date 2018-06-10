@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 
 import os
 import sys
@@ -8,6 +8,7 @@ import time
 import signal
 from stem import Signal
 from stem.control import Controller
+import requests
 
 
 class bcolors:
@@ -37,7 +38,6 @@ def sigint_handler(signum, frame):
     shutdown()
 
 def logo():
-	os.system("clear")
 	print bcolors.RED + bcolors.BOLD
 	print """
       _____           ____ _               _
@@ -58,6 +58,7 @@ def usage():
         torghost start -----(start torghost)
         torghost stop  -----(stop torghost)
 	torghost switch ----(switch IP)
+        torghost check ----(Check Tor connection status)
 
     """
 	sys.exit()
@@ -65,11 +66,19 @@ def usage():
 def ip():
 	while True:
 		try:
-			ipadd = commands.getstatusoutput('wget -qO- https://check.torproject.org | grep -Po "(?<=strong>)[\d\.]+(?=</strong)"')
+                    ipadd = commands.getstatusoutput('wget -qO- http://ipecho.net/plain')
 		except :
 			continue
 		break
 	return ipadd[1]
+
+def ipcheck():
+    resp = requests.get('https://check.torproject.org/')
+    text = resp.text
+    if 'Sorry' in text:
+        print t()+" Tor status check has "+bcolors.RED+"[FAILED]"+bcolors.ENDC
+    else:
+        print t()+" Tor status check is "+bcolors.GREEN+"[OK]"+bcolors.ENDC
 
 signal.signal(signal.SIGINT, sigint_handler)
 
@@ -157,8 +166,8 @@ def stop_torghost():
 	os.system(IpFlush)
 
 	print bcolors.GREEN+"[done]"+bcolors.ENDC
-	print t()+" Restarting Network manager",
-	os.system("service network-manager restart")
+	print t()+" Reapplying original netplan",
+	os.system("netplan apply")
 	print bcolors.GREEN+"[done]"+bcolors.ENDC
 	print t()+" Fetching current IP..."
 	print t()+" CURRENT IP : "+bcolors.GREEN+ip()+bcolors.ENDC
@@ -174,6 +183,11 @@ def switch_tor():
 	print t()+" Fetching current IP..."
 	print t()+" CURRENT IP : "+bcolors.GREEN+ip()+bcolors.ENDC
 
+def check_tor():
+    print t()+" Checking Tor connection"
+    time.sleep(4)
+    ipcheck()
+
 arg = sys.argv[1:]
 
 
@@ -187,5 +201,7 @@ elif sys.argv[1] == "stop":
 	stop_torghost()
 elif sys.argv[1] == "switch":
 	switch_tor()
+elif sys.argv[1] == "check":
+        check_tor()
 else:
 	usage()
