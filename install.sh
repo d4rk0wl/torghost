@@ -4,7 +4,8 @@ echo ""
 echo "=====> Installing tor bundle "
 sudo apt-get install tor -y -qq
 echo "=====> Installing dependencies "
-sudo pip install stem
+sudo apt-get install python-pip -y
+sudo pip2 install stem
 echo "=====> Installing TorGhost "
 sudo cp torghost /usr/bin/torghost
 sudo chmod +x /usr/bin/torghost
